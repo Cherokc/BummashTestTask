@@ -1,0 +1,97 @@
+﻿@model ForgingModelCalculator.Web.Models.RolledRingModel
+
+@{
+    ViewData["Title"] = "Создание кольца";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post" id="rolledRingForm">
+    <div class="form-group">
+        <label asp-for="D"></label>
+        <input asp-for="D" class="form-control" id="D" name="D" oninput="calculate()" />
+        <span asp-validation-for="D" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="InnderD"></label>
+        <input asp-for="InnderD" class="form-control" id="InnderD" name="InnderD" oninput="calculate()" />
+        <span asp-validation-for="InnderD" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="H"></label>
+        <input asp-for="H" class="form-control" id="H" oninput="calculate()" />
+        <span asp-validation-for="H" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="x"></label>
+        <input asp-for="x" class="form-control" id="x" oninput="calculate()" />
+        <span asp-validation-for="x" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="y"></label>
+        <input asp-for="y" class="form-control" id="y" oninput="calculate()" />
+        <span asp-validation-for="y" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>z</label>
+        <input type="text" class="form-control" id="z" readonly />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Q"></label>
+        <input asp-for="Q" class="form-control" id="Q" oninput="calculate()" />
+        <span asp-validation-for="Q" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ThermalTreatmentAllowance"></label>
+        <input asp-for="ThermalTreatmentAllowance" class="form-control" id="ThermalTreatmentAllowance" oninput="calculate()" />
+        <span asp-validation-for="ThermalTreatmentAllowance" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>H1</label>
+        <input type="text" class="form-control" id="H1" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>H2</label>
+        <input type="text" class="form-control" id="H2" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Расчет</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        function calculate() {
+            var D = parseFloat(document.getElementById('D').value) || 0;
+            var d = parseFloat(document.getElementById('InnderD').value) || 0;
+            var H = parseFloat(document.getElementById('H').value) || 0;
+            var x = parseFloat(document.getElementById('x').value) || 0;
+            var y = parseFloat(document.getElementById('y').value) || 0;
+            var Q = parseFloat(document.getElementById('Q').value) || 0;
+            var ThermalTreatmentAllowance = parseFloat(document.getElementById('ThermalTreatmentAllowance').value) || 0;
+
+            var z = x - 1;
+            document.getElementById('z').value = z;
+
+            var H1 = H * x + y * (x - 1) + ThermalTreatmentAllowance;
+            document.getElementById('H1').value = H1.toFixed(2);
+
+            var H2 = H * x + y * (x - 1) + Q + ThermalTreatmentAllowance;
+            document.getElementById('H2').value = H2.toFixed(2);
+        }
+
+        window.onload = calculate;
+    </script>
+}

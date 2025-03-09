@@ -1,0 +1,360 @@
+﻿@model ForgingModelCalculator.Web.Models.RolledRingCalculatedSizesModel
+@{
+    var massNominalWithoutAllowance = ((Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskNominal.Mass - Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleNominal.Mass) * 10).ToString("F3");
+    var massMaxWithoutAllowance = ((Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskMax.Mass - Model.RolledRingCalculatedForgingMassesWithAllowance.HoleMax.Mass) * 10).ToString("F3");
+    var massNominalWithAllowance = ((Model.RolledRingCalculatedForgingMassesWithAllowance.DiskNominal.Mass - Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleNominal.Mass) * 10).ToString("F3");
+    var massMaxWithAllowance = ((Model.RolledRingCalculatedForgingMassesWithAllowance.DiskMax.Mass - Model.RolledRingCalculatedForgingMassesWithAllowance.HoleMax.Mass) * 10).ToString("F3");
+}
+
+<h2>Результаты</h2>
+<h4>
+    Деталь  - чистовые размеры и переменные
+</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>D</th>
+            <th>d</th>
+            <th>H</th>
+            <th>x</th>
+            <th>y</th>
+            <th>z</th>
+            <th>Q</th>
+            <th>Напуск на ТО</th>
+            <th>H1</th>
+            <th>H2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.RolledRing.D</td>
+            <td>@Model.RolledRing.d</td>
+            <td>@Model.RolledRing.H</td>
+            <td>@Model.RolledRing.x</td>
+            <td>@Model.RolledRing.y</td>
+            <td>@Model.RolledRing.z</td>
+            <td>@Model.RolledRing.Q</td>
+            <td>@Model.RolledRing.ThermalTreatmentAllowance</td>
+            <td>@Model.RolledRing.H1</td>
+            <td>@Model.RolledRing.H2</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Расчет размеров поковки</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Без пробы</th>
+            <th>С пробой</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <table>
+                    <thead>
+                    <th></th>
+                    <th>Размер</th>
+                    <th>Допуск на размер +-</th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>H заготовки = (Н1+б)+-∆/</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithoutAllowance.Height.Value</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithoutAllowance.Height.Tolerance</td>
+                        </tr>
+                        <tr>
+                            <td>D заг = (D+б)+-∆/2+напуск на ТО</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithoutAllowance.Diameter.Value</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithoutAllowance.Diameter.Tolerance</td>
+                        </tr>
+                        <tr>
+                            <td>d заг =(dдет-б)+-3б-напуск на ТО</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithoutAllowance.InnerDiameter.Value</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithoutAllowance.InnerDiameter.Tolerance</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <thead>
+                    <th></th>
+                    <th>Размер</th>
+                    <th>Допуск на размер +-</th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>H заготовки = (Н1+б)+-∆/</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithAllowance.Height.Value</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithAllowance.Height.Tolerance</td>
+                        </tr>
+                        <tr>
+                            <td>D заг = (D+б)+-∆/2+напуск на ТО</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithAllowance.Diameter.Value</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithAllowance.Diameter.Tolerance</td>
+                        </tr>
+                        <tr>
+                            <td>d заг =(dдет-б)+-3б-напуск на ТО</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithAllowance.InnerDiameter.Value</td>
+                            <td>@Model.RolledRingCalculatedForgingSizesWithAllowance.InnerDiameter.Tolerance</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Расчет массы поковки</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Без пробы</th>
+            <th>С пробой</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <table>
+                    <thead>
+                    <th></th>
+                    <th>D</th>
+                    <th>r</th>
+                    <th>H</th>
+                    <th>V</th>
+                    <th>m диск</th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Диск номинал</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskNominal.Diameter</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskNominal.Diameter/2.0</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskNominal.Height</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskNominal.Volume</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskNominal.Mass</td>
+                        </tr>
+                        <tr>
+                            <td>Диск максимал</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskMax.Diameter</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskMax.Diameter/2.0</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskMax.Height</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskMax.Volume</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.DiskMax.Mass</td>
+                        </tr>
+                        <tr>
+                            <td>Отверстие номинал</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleNominal.Diameter</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleNominal.Diameter/2.0</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleNominal.Height</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleNominal.Volume</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleNominal.Mass</td>
+                        </tr>
+                        <tr>
+                            <td>Отверстие максимал</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleMax.Diameter</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleMax.Diameter/2.0</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleMax.Height</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleMax.Volume</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithoutAllowance.HoleMax.Mass</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <thead>
+                    <th></th>
+                    <th>D</th>
+                    <th>r</th>
+                    <th>H</th>
+                    <th>V</th>
+                    <th>m диск</th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Диск номинал</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.DiskNominal.Diameter</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.DiskNominal.Diameter/2.0</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.DiskNominal.Height</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.DiskNominal.Volume</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.DiskNominal.Mass</td>
+                        </tr>
+                        <tr>
+                            <td>Диск максимал</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.DiskMax.Diameter</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.DiskMax.Diameter/2.0</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.DiskMax.Height</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.DiskMax.Volume</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.DiskMax.Mass</td>
+                        </tr>
+                        <tr>
+                            <td>Отверстие номинал</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.HoleNominal.Diameter</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.HoleNominal.Diameter/2.0</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.HoleNominal.Height</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.HoleNominal.Volume</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.HoleNominal.Mass</td>
+                        </tr>
+                        <tr>
+                            <td>Отверстие максимал</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.HoleMax.Diameter</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.HoleMax.Diameter/2.0</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.HoleMax.Height</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.HoleMax.Volume</td>
+                            <td>@Model.RolledRingCalculatedForgingMassesWithAllowance.HoleMax.Mass</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Итог</h4>
+<table>
+    <thead>
+        <th>Без пробы</th>
+        <th>С пробой</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            Номинальная масса - @massNominalWithoutAllowance
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Максимальная масса - @massMaxWithoutAllowance
+                        </td>
+                        </tr>
+                    <tr>
+                        <td>
+                            <img id="ringShapeWithoutAllowance" src="~/imgs/RolledRingTemplate.png" alt="Image" style="display:none;" />
+                            <canvas id="ctxWithoutAllowance"></canvas>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            Номинальная масса - @massNominalWithAllowance
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Максимальная масса - @massMaxWithAllowance
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img id="ringShapeWithAllowance" src="~/imgs/RolledRingTemplate.png" alt="Image" style="display:none;" />
+                            <canvas id="ctxWithAllowance"></canvas>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="@Url.Action("Index")" class="btn btn-secondary">Назад</a>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2; 
+    }
+</style>
+<script>
+    window.onload = function () {
+        var ringShapeWithoutAllowance = document.getElementById("ringShapeWithoutAllowance");
+        var ringShapeWithAllowance = document.getElementById("ringShapeWithAllowance");
+
+        var canvas = document.getElementById("ctxWithoutAllowance");
+            var ctx = canvas.getContext("2d");
+
+            canvas.width = ringShapeWithoutAllowance.width;
+            canvas.height = ringShapeWithoutAllowance.height;
+
+            ctx.drawImage(ringShapeWithoutAllowance, 0, 0);
+
+            ctx.font = "16px Arial";
+            ctx.fillStyle = "red";
+
+            // mass
+            ctx.fillText("@massNominalWithoutAllowance", 419, 18);
+            ctx.fillText("@massMaxWithoutAllowance", 429, 39);
+
+            //innerD
+            ctx.fillText("@Model.RolledRing.d", 335, 122);
+            ctx.fillText("@(Model.RolledRingCalculatedForgingSizesWithoutAllowance.InnerDiameter.Value)+-@(Model.RolledRingCalculatedForgingSizesWithoutAllowance.InnerDiameter.Tolerance)", 325, 145);
+
+            //outerD
+            ctx.fillText("@Model.RolledRing.D", 335, 320);
+            ctx.fillText("@(Model.RolledRingCalculatedForgingSizesWithoutAllowance.Diameter.Value)+-@(Model.RolledRingCalculatedForgingSizesWithoutAllowance.Diameter.Tolerance)", 325, 343);
+
+            ctx.save();
+            ctx.translate(50, 50);
+            ctx.rotate(-Math.PI / 2);
+
+            //height
+            ctx.fillText("@Model.RolledRing.H", -190, 565);
+            ctx.fillText("@Model.RolledRingCalculatedForgingSizesWithoutAllowance.Height.Value", -190, 590);
+
+            ctx.restore();
+
+        var canvas = document.getElementById("ctxWithAllowance");
+            var ctx = canvas.getContext("2d");
+
+            canvas.width = ringShapeWithAllowance.width;
+            canvas.height = ringShapeWithAllowance.height;
+
+            ctx.drawImage(ringShapeWithAllowance, 0, 0);
+
+            ctx.font = "16px Arial";
+            ctx.fillStyle = "red";
+
+            // mass
+            ctx.fillText("@massNominalWithAllowance", 419, 18);
+            ctx.fillText("@massMaxWithAllowance", 429, 39);
+
+            //innerD
+            ctx.fillText("@Model.RolledRing.d", 335, 122);
+            ctx.fillText("@(Model.RolledRingCalculatedForgingSizesWithAllowance.InnerDiameter.Value)+-@(Model.RolledRingCalculatedForgingSizesWithAllowance.InnerDiameter.Tolerance)", 325, 145);
+
+            //outerD
+            ctx.fillText("@Model.RolledRing.D", 335, 320);
+            ctx.fillText("@(Model.RolledRingCalculatedForgingSizesWithAllowance.Diameter.Value)+-@(Model.RolledRingCalculatedForgingSizesWithAllowance.Diameter.Tolerance)", 325, 343);
+
+            ctx.save();
+            ctx.translate(50, 50);
+            ctx.rotate(-Math.PI / 2);
+
+            //height
+            ctx.fillText("@Model.RolledRing.H", -190, 565);
+            ctx.fillText("@Model.RolledRingCalculatedForgingSizesWithAllowance.Height.Value", -190, 590);
+
+            ctx.restore();
+    };
+</script>
